@@ -1,11 +1,14 @@
-
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./NavBar/NavBar";
 
 const App = () => {
- 
   return (
-    <h1>
-      hello word
-    </h1>
+    <Router>
+      <div>
+        <Navbar />
+      </div>
+    </Router>
   );
 };
 
