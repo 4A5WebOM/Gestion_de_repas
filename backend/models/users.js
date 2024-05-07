@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 const Schema = mongoose.Schema;
 
@@ -18,8 +19,6 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    FirstName: String,
-    LastName: String,
 
     // Champs pour stocker les recettes préférées de l'utilisateur
     favoriteRecipes: [{
@@ -30,6 +29,10 @@ const userSchema = new Schema({
 
 // Static signup method
 userSchema.statics.signup = async function (username, email, password) {
+
+    if  (!username || !email || !password) throw new Error('Tous les champs sont obligatoires');
+
+    if (!validator.isEmail(email)) throw new Error('L\'email n\'est pas valide');
     
     const emailExists = await this.findOne({ email });
     const usernameExists = await this.findOne({ username });
@@ -46,6 +49,22 @@ userSchema.statics.signup = async function (username, email, password) {
     const hash = await bcrypt.hash(password, salt);
 
     const user = await this.create({ username, email, password: hash });
+
+    return user;
+}
+
+// Static login method
+userSchema.statics.login = async function (email, password) {
+
+    if (!email || !password) throw new Error('Email et mot de passe sont obligatoires');
+
+    const user = await this.findOne({ email });
+
+    if (!user) throw new Error('Email ou mot de passe incorrect');
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) throw new Error('Email ou mot de passe incorrect');
 
     return user;
 }
