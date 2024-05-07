@@ -1,11 +1,7 @@
 
 .navbar {
-  background-image: url('../../assets/arrierePlan.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 30px 10px;
+  background: transparent;
 }
-
 .navbar ul {
   list-style-type: none;
   padding: 0;
@@ -17,7 +13,7 @@
 }
 
 .navbar ul li a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
   transition: color 0.3s;
   font-family: 'Roboto', sans-serif;
