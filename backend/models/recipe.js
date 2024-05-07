@@ -30,6 +30,12 @@ const recipeSchema = new Schema({
         type: String,
         required: true,
     },
+    // Categorie de la recette
+    category: {
+        type: String,
+        required: true,
+        enum: ['Déjeuner', 'Diner', 'Souper'],
+    },
     // Champ pour stocker l'utilisateur qui a créé la recette
     createdBy: {
         type: Schema.Types.ObjectId,
