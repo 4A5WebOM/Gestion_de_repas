@@ -8,7 +8,7 @@ function NavBar() {
     <nav className="navbar">
       <ul>
       <li>
-            <Link to="/Login" onClick={() => setIsNavOpen(false)}>
+            <Link to="/" onClick={() => setIsNavOpen(false)}>
               connexion
             </Link>
           </li>
