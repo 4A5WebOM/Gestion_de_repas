@@ -1,0 +1,30 @@
+
+.navbar {
+  background-image: url('../../assets/arrierePlan.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 30px 10px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.navbar ul li a:hover {
+  color: #ff0051;
+}
