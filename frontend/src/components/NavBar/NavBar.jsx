@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "../Login/Login.jsx";
 import "../RecipeListPage/RecipeListPage.jsx";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
   const { user, logout } = useAuthContext();
@@ -52,7 +54,9 @@ function NavBar() {
               <button onClick={logout}>Deconnexion</button>
             </li>
             <li>
-              <span>Bonjour {user.username}</span>
+              <Link to="/profile" className="profile-link">
+                <FontAwesomeIcon icon={faUser} /> Mon compte
+              </Link>
             </li>
           </>
         )}

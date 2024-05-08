@@ -7,13 +7,18 @@
   padding: 0;
 }
 
-.navbar ul li {
+.navbar ul li, .navbar ul li button {
   display: inline-block;
   position: relative;
   margin-right: 20px;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
+}
+
+.navbar ul li button {
+  background-color: transparent;
+  border: none;
 }
 
 .navbar ul li a {
@@ -21,13 +26,13 @@
   text-decoration: none;
   transition: color 0.3s;
   font-family: "Roboto", sans-serif;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: bold;
   display: block;
   padding: 14px 16px;
 }
 
-.navbar ul li a:hover {
+.navbar ul li a:hover, .navbar ul li button:hover {
   color: #ff0051;
 }
 
@@ -51,4 +56,15 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid black;
+  text-decoration: none;
+  color: black;
+  background-color: rgba(0, 0, 0, 0.067);
+
+}
+
 
