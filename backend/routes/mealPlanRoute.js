@@ -1,9 +1,9 @@
 const express = require('express');
-const { getMealPlans, getMealPlanById, createMealPlan, updateMealPlanById, deleteMealPlanById } = require('../controllers/mealPlanController');
+const { getAllMealPlans, getMealPlanById, createMealPlan, updateMealPlanById, deleteMealPlanById } = require('../controllers/mealPlanController');
 
 const router = express.Router();
 
-router.get('/', getMealPlans);
+router.get('/', getAllMealPlans);
 
 router.get('/:id', getMealPlanById);
 

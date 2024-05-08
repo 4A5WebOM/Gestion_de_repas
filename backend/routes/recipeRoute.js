@@ -1,9 +1,9 @@
 const express = require('express');
-const { getRecipes, getRecipeById, createRecipe, updateRecipeById, deleteRecipeById } = require('../controllers/recipeController');
+const { getAllRecipes, getRecipeById, createRecipe, updateRecipeById, deleteRecipeById } = require('../controllers/recipeController');
 
 const router = express.Router();
 
-router.get('/', getRecipes);
+router.get('/', getAllRecipes);
 
 router.get('/:id', getRecipeById);
 
