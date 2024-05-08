@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { mongoose } = require("mongoose");
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 
@@ -56,13 +56,12 @@ const getUserById = async (req, res) => {
 // Modifier un utilisateur
 const updateUserById = async (req, res) => {
   const { id } = req.params;
-  const updateData = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "ID invalide" });
   }
 
-  const user = await Users.findByIdAndUpdate(id, updateData, { new: true });
+  const user = await User.findOneAndUpdate({ _id: id}, {...req.body}, { new: true })
 
   if (!user) {
     return res.status(400).json({ error: "Utilisateur non-trouvé" });
