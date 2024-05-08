@@ -1,5 +1,5 @@
 const express = require('express');
-const requireAuth = require('../middlewares/requireAuth');
+const requireAuth = require('../middleware/requireAuth');
 const { getAllMealPlans, getMealPlanById, createMealPlan, updateMealPlanById, deleteMealPlanById } = require('../controllers/mealPlanController');
 
 const router = express.Router();
