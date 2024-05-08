@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 import "../Login/Login.jsx";
-import "../RecipeListPage/RecipeListPage.jsx";
+import"../../RecipeListPage/RecipeListPage.jsx";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";

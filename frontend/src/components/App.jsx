@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext.js";
 
 // Pages et Components
 import Login from  "../components/Login/Login.jsx";
-import RecipeListPage from "../components/RecipeListPage/RecipeListPage.jsx";
+import RecipeListPage from "../RecipeListPage/RecipeListPage.jsx";
 import NavBar from "./NavBar/NavBar";
 import SignUp from "../components/SignUp/SignUp.jsx"; 
 import Home from "../components/Home/Home.jsx";
