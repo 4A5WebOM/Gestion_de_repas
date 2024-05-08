@@ -54,7 +54,7 @@ function NavBar() {
               <button onClick={logout}>Deconnexion</button>
             </li>
             <li>
-              <Link to="/profile" className="profile-link">
+              <Link to="/profile">
                 <FontAwesomeIcon icon={faUser} /> Mon compte
               </Link>
             </li>

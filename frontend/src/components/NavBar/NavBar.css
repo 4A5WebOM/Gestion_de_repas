@@ -57,14 +57,6 @@
   display: block;
 }
 
-.profile-link {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid black;
-  text-decoration: none;
-  color: black;
-  background-color: rgba(0, 0, 0, 0.067);
 
-}
 
 
