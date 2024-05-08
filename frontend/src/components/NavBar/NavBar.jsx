@@ -8,13 +8,18 @@ function NavBar() {
     <nav className="navbar">
       <ul>
       <li>
-            <Link to="/" onClick={() => setIsNavOpen(false)}>
-              connexion
+          <Link to="/" >
+              Connexion
             </Link>
           </li>
           <li>
-            <Link to="/RecipeListPage" onClick={() => setIsNavOpen(false)}>
+            <Link to="/RecipeListPage" >
               Nos recettes
+            </Link>
+          </li>
+          <li>
+            <Link to="/signup">
+              Inscription
             </Link>
           </li>
       </ul>
