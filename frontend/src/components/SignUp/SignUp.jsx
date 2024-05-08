@@ -27,7 +27,7 @@ export default function SignUp() {
 
   const authSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log('authSubmitHandler called'); // Add this line
+    console.log('authSubmitHandler called'); 
     try {
       const response = await fetch("http://localhost:4000/api/users/signup", {
         method: "POST",
@@ -37,14 +37,14 @@ export default function SignUp() {
         body: JSON.stringify(enteredValues),
       });
       const data = await response.json();
-      console.log('Server response:', data); // Add this line
+      console.log('Server response:', data); 
       if (!response.ok) {
         throw new Error(data.message || "Une erreur s'est produite");
       }
-      console.log('Navigating to root route'); // Add this line
+      console.log('Navigating to root route'); 
       navigate("/");
     } catch (error) {
-      console.log('Error:', error); // Add this line
+      console.log('Error:', error); 
     }
   };
 

@@ -3,12 +3,14 @@ import "./NavBar.css";
 import { Link } from "react-router-dom";
 import "../Login/Login.jsx";
 import "../RecipeListPage/RecipeListPage.jsx";
+
+
 function NavBar() {
   return (
     <nav className="navbar">
       <ul>
       <li>
-          <Link to="/" >
+          <Link to="/login" >
               Connexion
             </Link>
           </li>
