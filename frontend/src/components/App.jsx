@@ -8,6 +8,7 @@ import RecipeListPage from "../components/RecipeListPage/RecipeListPage.jsx";
 import NavBar from "./NavBar/NavBar";
 import SignUp from "../components/SignUp/SignUp.jsx"; 
 import Home from "../components/Home/Home.jsx";
+import Profil from "./Profil/Profil.jsx";
 
 function App() {
   const { user } = useAuthContext();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/RecipeListPage" element={<RecipeListPage />} />
           <Route path="/signup"  element={!user ? <SignUp /> : <Navigate to="/" />} />
+          <Route path="/profile" element={user ? <Profil /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>
