@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -47,7 +47,7 @@ export default function Login() {
       console.log("Login successful, navigating to home page");
       console.log(data)
       login(data.user, data.token);
-      navigate("/");
+      return <Navigate to="/" />;
     } catch (error) {
       console.log("Error during login: ", error);
     }
