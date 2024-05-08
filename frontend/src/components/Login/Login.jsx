@@ -45,8 +45,8 @@ export default function Login() {
       }
 
       console.log("Login successful, navigating to home page");
+      console.log(data)
       login(data.user, data.token);
-      console.log(data.user, data.token);
       navigate("/");
     } catch (error) {
       console.log("Error during login: ", error);

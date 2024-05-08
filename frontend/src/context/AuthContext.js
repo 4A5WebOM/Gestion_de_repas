@@ -21,6 +21,11 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (user, token) => { 
+        if (!user || !token) {
+            console.log('Invalid user or token');
+            return;
+        }
+        console.log('Logging in with user: ', user);
         setUser(user);
         setToken(token); 
         localStorage.setItem("user", JSON.stringify(user));
