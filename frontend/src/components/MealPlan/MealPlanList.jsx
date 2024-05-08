@@ -3,7 +3,6 @@ import React from "react";
 const MealPlanList = ({ mealPlans }) => {
   return (
     <div>
-      <h2>Meal Plans</h2>
       <ul>
         {mealPlans.map((mealPlan) => (
           <li key={mealPlan.id}>
