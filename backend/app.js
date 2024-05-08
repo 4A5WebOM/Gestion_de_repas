@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoute = require('./routes/userRoute');
 const recipeRoute = require('./routes/recipeRoute');
+const mealPlanRoute = require('./routes/mealPlanRoute');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 
 app.use('/api/users', userRoute);
 app.use('/api/recipes', recipeRoute);
+app.use('/api/meal-plans', mealPlanRoute);
 
 // Connection à la base de données MongoDB
 mongoose

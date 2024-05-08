@@ -20,10 +20,10 @@ const mealPlanSchema = new Schema({
                 type: String,
                 enum: ['Déjeuner', 'Diner', 'Souper'],
             },
-            recipes: [{
+            recipe: {
                 type: Schema.Types.ObjectId,
                 ref: 'Recipe',
-            }]
+            }
         }]
     }],
     createdBy: {
