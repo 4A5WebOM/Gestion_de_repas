@@ -4,14 +4,16 @@ const { getAllMealPlans, getMealPlanById, createMealPlan, updateMealPlanById, de
 
 const router = express.Router();
 
+router.use(requireAuth);
+
 router.get('/', getAllMealPlans);
 
 router.get('/:id', getMealPlanById);
 
-router.post('/', requireAuth, createMealPlan);
+router.post('/', createMealPlan);
 
-router.patch('/:id', requireAuth, updateMealPlanById);
+router.patch('/:id', updateMealPlanById);
 
-router.delete('/:id', requireAuth, deleteMealPlanById);
+router.delete('/:id', deleteMealPlanById);
 
 module.exports = router;
