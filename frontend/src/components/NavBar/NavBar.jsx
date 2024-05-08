@@ -6,7 +6,7 @@ import "../RecipeListPage/RecipeListPage.jsx";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 
 function NavBar() {
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
 
   return (
     <nav className="navbar">
@@ -45,6 +45,9 @@ function NavBar() {
         {user && (
           //active au moment qu'un utilisateur est connecte
           <>
+            <li>
+              <button onClick={logout}>Deconnexion</button>
+            </li>
             <li>
               <Link to="/ProfilePage">Profil</Link>
             </li>

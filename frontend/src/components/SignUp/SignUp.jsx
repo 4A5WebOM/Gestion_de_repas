@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./SignUp.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function SignUp() {
   const [enteredValues, setEnteredValues] = useState({
@@ -12,7 +12,6 @@ export default function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -42,7 +41,7 @@ export default function SignUp() {
         throw new Error(data.message || "Une erreur s'est produite");
       }
       console.log('Navigating to root route'); 
-      navigate("/");
+      return <Navigate to="/" />;
     } catch (error) {
       console.log('Error:', error); 
     }
