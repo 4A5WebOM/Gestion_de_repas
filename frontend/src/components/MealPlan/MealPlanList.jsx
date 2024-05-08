@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import "./MealPlanList.css";
+import React from "react";
 
 const MealPlanList = ({ mealPlans }) => {
   return (
