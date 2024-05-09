@@ -10,6 +10,7 @@ import SignUp from "../components/SignUp/SignUp.jsx";
 import Home from "../components/Home/Home.jsx";
 import Profil from "./Profil/Profil.jsx";
 import RecipeDetailPage from "../RecipeDetailPage/RecipeDetailPage.jsx";
+import MyRecipeList from "../Pages/MyRecipeList.jsx";
 
 function App() {
   const { user } = useAuthContext();
@@ -24,8 +25,9 @@ function App() {
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/RecipeListPage" element={<RecipeListPage />} />
           <Route path="/signup"  element={!user ? <SignUp /> : <Navigate to="/" />} />
-          <Route path="/profile" element={user ? <Profil /> : <Navigate to="/login" />} />
+          <Route path="/profile" element={user ? <Profil /> : <Navigate to="/" />} />
           <Route path="/recipe/:id" element= { <RecipeDetailPage />} />
+          <Route path="/myRecipes" element={user ? <MyRecipeList /> : <Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

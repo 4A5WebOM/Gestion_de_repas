@@ -7,7 +7,7 @@ const RecipeDetail = ({ recipe }) => {
     <div key={recipe._id}>
       <h2>{recipe.title}</h2>
       <Link to={`/recipe/${recipe._id}`}>
-        <img src={recipe.image} alt={recipe.title} />
+        <img src={recipe.image} alt={recipe.title} className='recipeDetail-img'/>
       </Link>
     </div>
   );
