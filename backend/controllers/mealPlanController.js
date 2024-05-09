@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mealPlanSchema = require('../models/mealPlan');
+const { check, validationResult } = require("express-validator");
 
 
 // GET tous les mealPlans
@@ -78,20 +79,30 @@ const deleteMealPlanById = async (req, res) => {
 };
 
 // Modifier un mealPlan
-const updateMealPlanById = async (req, res) => {
-    const { id } = req.params;
+const updateMealPlanById = [
+    check('title').notEmpty().withMessage('Le titre est requis'),
+    check('description').notEmpty().withMessage('La description est requise'),
+    check('days.*.meals.*.recipe').notEmpty().withMessage('Vous devez choisir des recettes pour chaque repas'),
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ error: "ID invalide" });
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "ID invalide" });
+        }
+
+        const mealPlan = await mealPlanSchema.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+
+        if (!mealPlan) {
+            return res.status(400).json({ error: "MealPlan non-trouvé" });
+        } else {
+            res.status(200).json(mealPlan);
+        }
     }
-
-    const mealPlan = await mealPlanSchema.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
-
-    if (!mealPlan) {
-        return res.status(400).json({ error: "MealPlan non-trouvé" });
-    } else {
-        res.status(200).json(mealPlan);
-    }
-};
+];
 
 module.exports = { getAllMealPlans, getMealPlanById, createMealPlan, deleteMealPlanById, updateMealPlanById };
