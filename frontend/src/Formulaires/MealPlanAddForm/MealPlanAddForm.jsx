@@ -1,54 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MealPlanAddForm.css";
 
 const MealPlanAddForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    days: [{ day: "", meals: [{ time: "", recipe: "" }] }],
+    days: [
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+      "Dimanche",
+    ].map((day) => ({
+      day,
+      meals: [
+        { time: "Déjeuner", recipe: "", recipes: [] },
+        { time: "Diner", recipe: "", recipes: [] },
+        { time: "Souper", recipe: "", recipes: [] },
+      ],
+    })),
   });
+
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
+  const fetchRecipes = async (time) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/recipes?category=${time}`
+      );
+      const data = await response.json();
+      return data.recipes;
+    } catch (error) {
+      console.error("Erreur:", error);
+      return [];
+    }
+  };
+
+  const handleMealChange = async (e, dayIndex, mealIndex) => {
+    const { name, value } = e.target;
+    const updatedDays = [...formData.days];
+    updatedDays[dayIndex].meals[mealIndex][name] = value;
+    if (name === "time") {
+      const recipes = await fetchRecipes(value);
+      updatedDays[dayIndex].meals[mealIndex].recipes = recipes;
+    }
+    setFormData({
+      ...formData,
+      days: updatedDays,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
-
-  const handleDayChange = (e, index) => {
-    const { name, value } = e.target;
-    const updatedDays = [...formData.days];
-    updatedDays[index][name] = value;
-    setFormData({
-      ...formData,
-      days: updatedDays,
-    });
-  };
-
-  const handleMealChange = (e, dayIndex, mealIndex) => {
-    const { name, value } = e.target;
-    const updatedDays = [...formData.days];
-    updatedDays[dayIndex].meals[mealIndex][name] = value;
-    setFormData({
-      ...formData,
-      days: updatedDays,
-    });
-  };
-
-  const handleAddDay = () => {
-    setFormData({
-      ...formData,
-      days: [...formData.days, { day: "", meals: [{ time: "", recipe: "" }] }],
-    });
-  };
-
-  const handleAddMeal = (dayIndex) => {
-    const updatedDays = [...formData.days];
-    updatedDays[dayIndex].meals.push({ time: "", recipe: "" });
-    setFormData({
-      ...formData,
-      days: updatedDays,
     });
   };
 
@@ -78,64 +88,31 @@ const MealPlanAddForm = ({ onSubmit }) => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <button type="button" onClick={handleAddDay}>
-            Ajouter un jour
-          </button>
-          {formData.days.map((day, index) => (
-            <div key={index}>
-              <h3>Jour {index + 1}</h3>
-              <div>
-                <label>Jour:</label>
-                <select
-                  name="day"
-                  value={day.day}
-                  onChange={(e) => handleDayChange(e, index)}
-                >
-                  <option value="">Sélectionner</option>
-                  <option value="Lundi">Lundi</option>
-                  <option value="Mardi">Mardi</option>
-                  <option value="Mercredi">Mercredi</option>
-                  <option value="Jeudi">Jeudi</option>
-                  <option value="Vendredi">Vendredi</option>
-                  <option value="Samedi">Samedi</option>
-                  <option value="Dimanche">Dimanche</option>
-                </select>
-              </div>
-              <button type="button" onClick={() => handleAddMeal(index)}>
-                Ajouter un repas
-              </button>
-              {day.meals.map((meal, mealIndex) => (
-                <div key={mealIndex}>
-                  <h4>Repas {mealIndex + 1}</h4>
-                  <div>
-                    <label>Temps:</label>
-                    <select
-                      name="time"
-                      value={meal.time}
-                      onChange={(e) => handleMealChange(e, index, mealIndex)}
-                    >
-                      <option value="">Sélectionner</option>
-                      <option value="Déjeuner">Déjeuner</option>
-                      <option value="Diner">Diner</option>
-                      <option value="Souper">Souper</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label>Recette:</label>
-                    <input
-                      type="text"
-                      name="recipe"
-                      value={meal.recipe}
-                      onChange={(e) => handleMealChange(e, index, mealIndex)}
-                    />
-                  </div>
+        {formData.days.map((day, dayIndex) => (
+          <div key={dayIndex}>
+            <h3>{day.day}</h3>
+            {day.meals.map((meal, mealIndex) => (
+              <div key={mealIndex}>
+                <h4>{meal.time}</h4>
+                <div>
+                  <label>Recette:</label>
+                  <select
+                    name="recipe"
+                    value={meal.recipe}
+                    onChange={(e) => handleMealChange(e, dayIndex, mealIndex)}
+                  >
+                    <option value="">Sélectionner</option>
+                    {meal.recipes.map((recipe) => (
+                      <option key={recipe._id} value={recipe._id}>
+                        {recipe.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
+              </div>
+            ))}
+          </div>
+        ))}
         <button type="submit">Créer le plan de repas</button>
       </form>
     </div>
