@@ -9,16 +9,16 @@ export default function MyMealPlanList() {
 
   useEffect(() => {
     const fetchMealPlans = async () => {
-      const response = await fetch('http://localhost:4000/api/meal-plans', {
+      const response = await fetch("http://localhost:4000/api/meal-plans", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
-  
+
       if (response.ok) {
         const userMealPlans = data.mealPlans.filter(
-          mealPlan => mealPlan.createdBy === user._id
+          (mealPlan) => mealPlan.createdBy === user._id
         );
         setMealPlans(userMealPlans);
       } else {
@@ -31,9 +31,9 @@ export default function MyMealPlanList() {
   return (
     <div>
       <SideBar />
-      <div className="recipeListPage" style={{ marginLeft: '250px' }}>
+      <div className="recipeListPage" style={{ marginLeft: "250px" }}>
         {mealPlans.map((mealPlan) => (
-            <MealPlanDetail mealPlan={mealPlan} key={mealPlan._id} />
+          <MealPlanList mealPlan={mealPlan} key={mealPlan._id} />
         ))}
       </div>
     </div>

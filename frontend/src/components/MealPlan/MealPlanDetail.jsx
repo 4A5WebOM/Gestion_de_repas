@@ -2,7 +2,7 @@ import React from "react";
 //
 const MealPlanDetail = ({ mealPlan }) => {
   return (
-    <div>
+    <div key={mealPlan._id}>
       <h2>{mealPlan.title}</h2>
       <p>{mealPlan.description}</p>
       <p>{mealPlan.ingredients}</p>
