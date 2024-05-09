@@ -18,7 +18,7 @@ body {
 }
 
 
-.home-scroll-down-button {
+.home-link {
     position: absolute;
     border-radius: 10000px;
     bottom: 20px;
@@ -29,8 +29,10 @@ body {
     cursor: pointer;
     background: rgba(70, 74, 75, 255);
     transition: all 0.8s ease 0;
+    text-decoration: none;
+    color: black;
 }
 
-.home-scroll-down-button:hover {
+.home-link:hover {
     background: rgba(82,86,87,255);
 }
