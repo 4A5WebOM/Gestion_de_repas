@@ -15,9 +15,6 @@ export default function SideBar() {
                 <Link to="/myMealPlans">
                     <li>Mes Plans de Repas</li>
                 </Link>
-                <Link to="/Favorites">
-                    <li>Mes Recettes Favorites</li>
-                </Link>
             </ul>
         </div>
     );
