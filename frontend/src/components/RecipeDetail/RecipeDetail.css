@@ -1,0 +1,19 @@
+
+
+
+
+.recipeListPage {
+    padding: 4px;
+    display: flex;
+    justify-content: space-around;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+img {
+    border-radius: 10%;
+    border: 2px solid black;
+}
+
+img:hover {
+    transform: scale(1.1);
+}

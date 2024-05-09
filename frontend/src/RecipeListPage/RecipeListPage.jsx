@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './RecipeListPage.css';
+import RecipeDetail from '../components/RecipeDetail/RecipeDetail';
+
 const RecipeListPage = () => {
-const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+
   useEffect(() => {
     fetchRecipes();
   }, []);
@@ -16,17 +19,13 @@ const [recipes, setRecipes] = useState([]);
     }
   };
 
-return (
-  <div className="recipeListPage">
-    <h1>Recipe List</h1>
-    {recipes.map((recipe) => (
-      <div key={recipe._id}>
-        <h2>{recipe.title}</h2>
-        <p>{recipe.description}</p>
-      </div>
-    ))}
-  </div>
-);
+  return (
+    <div className="recipeListPage">
+      {recipes.map((recipe) => (
+        <RecipeDetail key={recipe._id} recipe={recipe} /> 
+      ))}
+    </div>
+  );
 };
 
 export default RecipeListPage;

@@ -1,3 +1,5 @@
-.recipeListPage {
-    background-image: url("../assets/arrierePlan.jpg");
+body {
+    background-image: url('https://t3.ftcdn.net/jpg/02/96/27/00/360_F_296270050_IIHuyhgDA05GRkRxyfthqMdikWLxOJdX.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
