@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./SignUp.css";
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import { set } from "mongoose";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [enteredValues, setEnteredValues] = useState({
@@ -13,7 +12,7 @@ export default function SignUp() {
 
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -43,7 +42,7 @@ export default function SignUp() {
         throw new Error(data.error);
       }
       console.log('Navigating to root route'); 
-      return <Navigate to="/" />;
+      navigate('/login');
     } catch (error) {
       setError(error.message);
     }
