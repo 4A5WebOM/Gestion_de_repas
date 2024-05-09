@@ -91,7 +91,7 @@ export default function Profil() {
           value={email} 
           onChange={e => setEmail(e.target.value)}
         />
-        <button onClick={updateUser}>Save</button>
+        <button onClick={updateUser}>Sauvegarder les modifications</button>
         { error && <div className="error">{error}</div> }
       </div>
     </>
