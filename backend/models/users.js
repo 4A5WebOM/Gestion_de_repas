@@ -19,12 +19,6 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-
-    // Champs pour stocker les recettes préférées de l'utilisateur
-    favoriteRecipes: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Recipe',
-    }],
 }, { timestamps: true });
 
 // Static signup method

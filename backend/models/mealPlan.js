@@ -14,21 +14,25 @@ const mealPlanSchema = new Schema({
         day: {
             type: String,
             enum: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+            required: true
         },
         meals: [{
             time: {
                 type: String,
                 enum: ['Déjeuner', 'Diner', 'Souper'],
+                required: true
             },
             recipe: {
                 type: Schema.Types.ObjectId,
                 ref: 'Recipe',
+                required: true
             }
         }]
     }],
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     }
 } , { timestamps: true });
 
