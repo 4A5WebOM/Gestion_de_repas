@@ -17,6 +17,9 @@ import Profil from "./Profil/Profil.jsx";
 import RecipeDetailPage from "../RecipeDetailPage/RecipeDetailPage.jsx";
 import MyRecipeList from "../Pages/MyRecipeList.jsx";
 import MyMealPlanList from "../Pages/MyMealPlanList.jsx";
+import MealPlanAddForm from "../Formulaires/MealPlanAddForm/MealPlanAddForm.jsx";
+import MealPlanDetailPage from "../Pages/MealPlanDetailPage.jsx";
+import MealPlanEditForm from "../Formulaires/MealPlanFormEdit/MealPlanEditForm.jsx";
 
 function App() {
   const { user } = useAuthContext();
@@ -49,6 +52,9 @@ function App() {
             path="/myMealPlans"
             element={user ? <MyMealPlanList /> : <Navigate to="/" />}
           />
+          <Route path="/meal-plan/:id" element={<MealPlanDetailPage />} />
+          <Route path="/addMealPlan" element={<MealPlanAddForm />} />
+          <Route path="/editMealPlan/:id" element={<MealPlanEditForm />} />
         </Routes>
       </div>
     </Router>

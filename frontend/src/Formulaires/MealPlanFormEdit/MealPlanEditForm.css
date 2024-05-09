@@ -1,0 +1,60 @@
+.mealPlanEditForm {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.mealPlanEditForm h2 {
+  margin-top: 0;
+}
+
+.mealPlanEditForm label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mealPlanEditForm input,
+.mealPlanEditForm select,
+.mealPlanEditForm textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.mealPlanEditForm button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mealPlanEditForm button[type="button"] {
+  background-color: #008cba;
+}
+
+.mealPlanEditForm button[type="submit"] {
+  background-color: #4caf50;
+}
+
+.mealPlanEditForm button:hover {
+  background-color: #45a049;
+}
+
+.mealPlanEditForm select {
+  width: calc(100% - 18px);
+}
+
+.mealPlanEditForm > div > div {
+  margin-bottom: 10px;
+}
+
+.mealPlanEditForm > div > div > div {
+  margin-top: 10px;
+}
