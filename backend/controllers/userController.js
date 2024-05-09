@@ -1,6 +1,8 @@
 const { mongoose } = require("mongoose");
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
+
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "3d" });
@@ -59,6 +61,30 @@ const updateUserById = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "ID invalide" });
+  }
+
+  const { username, email } = req.body;
+
+  // Vérifier si le username et l'email sont fournis
+  if (!username || !email) {
+    return res.status(400).json({ error: "L'email et le username sont obligatoires" });
+  }
+
+  // Vérifier si l'email est valide
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({ error: "L'email n'est pas valide" });
+  }
+
+  // Vérifier si le username ou l'email est déjà pris
+  const userWithSameUsername = await User.findOne({ username });
+  const userWithSameEmail = await User.findOne({ email });
+
+  if (userWithSameUsername && userWithSameUsername._id.toString() !== id) {
+    return res.status(400).json({ error: "Le username est déjà pris" });
+  }
+
+  if (userWithSameEmail && userWithSameEmail._id.toString() !== id) {
+    return res.status(400).json({ error: "L'email est déjà pris" });
   }
 
   const user = await User.findOneAndUpdate({ _id: id}, {...req.body}, { new: true })

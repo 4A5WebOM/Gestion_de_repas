@@ -12,7 +12,7 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-
+  const [error, setError] = useState(null);
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -41,7 +41,7 @@ export default function Login() {
       const data = await response.json();
       console.log("Received response: ", data);
       if (!response.ok) {
-        throw new Error(data.message || "Une erreur s'est produite");
+        throw new Error(data.error);
       }
 
       console.log("Login successful, navigating to home page");
@@ -50,6 +50,7 @@ export default function Login() {
       return <Navigate to="/" />;
     } catch (error) {
       console.log("Error during login: ", error);
+      setError(error.message);
     }
   };
 
@@ -94,6 +95,7 @@ export default function Login() {
           <div>
             <button type="submit">Connectez-Vous</button>
           </div>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

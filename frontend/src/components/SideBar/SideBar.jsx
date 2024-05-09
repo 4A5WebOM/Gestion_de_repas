@@ -7,7 +7,7 @@ export default function SideBar() {
         <div className="sidebar">
             <ul>
                 <li>
-                    <Link to="/profile">Mon Compte</Link>
+                    <Link to="/profile">Mes Informations</Link>
                 </li>
                 <li>
                     <Link to="/myRecipes">Mes Recettes</Link>
