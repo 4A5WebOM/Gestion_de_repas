@@ -6,18 +6,19 @@ export default function SideBar() {
     return (
         <div className="sidebar">
             <ul>
-                <li>
-                    <Link to="/profile">Mon Compte</Link>
-                </li>
-                <li>
-                    <Link to="/myRecipes">Mes Recettes</Link>
-                </li>
-                <li>
-                    <Link to="/myMealPlans">Mes Plans de Repas</Link>
-                </li>
-                <li>
-                    <Link to="/Favorites">Mes Recettes Favorites</Link>
-                </li>
+                <Link to="/profile">
+                    <li>Mes Informations</li>
+                </Link>
+                <Link to="/myRecipes">
+                    <li>Mes Recettes</li>
+                </Link>
+                <Link to="/myMealPlans">
+                    <li>Mes Plans de Repas</li>
+                </Link>
+                <Link to="/Favorites">
+                    <li>Mes Recettes Favorites</li>
+                </Link>
             </ul>
         </div>
-    )};
+    );
+}

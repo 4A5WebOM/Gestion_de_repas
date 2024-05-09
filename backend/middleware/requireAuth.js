@@ -14,12 +14,14 @@ const requireAuth = async (req, res, next) => {
     try {
         const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
+        console.log(_id);
         req.user = await User.findById({ _id }).select('_id');
+        console.log(req.user);
         next();
 
     } catch (err) {
         console.log(err);
-        return res.status(401).json({ error: "La requete n' est pas autorise" });
+        return res.status(401).json({ error: "La requete n'est pas autorise" });
     }
 }
 

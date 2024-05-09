@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./SignUp.css";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { set } from "mongoose";
 
 export default function SignUp() {
   const [enteredValues, setEnteredValues] = useState({
@@ -10,6 +11,7 @@ export default function SignUp() {
     password: "",
   });
 
+  const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
 
@@ -38,12 +40,12 @@ export default function SignUp() {
       const data = await response.json();
       console.log('Server response:', data); 
       if (!response.ok) {
-        throw new Error(data.message || "Une erreur s'est produite");
+        throw new Error(data.error);
       }
       console.log('Navigating to root route'); 
       return <Navigate to="/" />;
     } catch (error) {
-      console.log('Error:', error); 
+      setError(error.message);
     }
   };
 
@@ -97,6 +99,7 @@ export default function SignUp() {
           <button type="submit">
             Créer un compte
           </button>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

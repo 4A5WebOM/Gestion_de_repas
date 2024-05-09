@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.sidebar ul li a {
+.sidebar ul a {
     color: black;
     text-decoration: none;
 }
