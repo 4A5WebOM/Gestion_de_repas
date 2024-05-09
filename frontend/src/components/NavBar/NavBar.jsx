@@ -21,19 +21,25 @@ function NavBar() {
           <div className="dropdown-content">
             <Link to="/RecipeListPage">Liste des recettes</Link>
             {user && (
-              <Link to="/RecipeFormPage">Ajouter/modifier une recette</Link>
+              <Link to="/RecipeFormPage">Ajouter une recette</Link>
             )}
           </div>
         </li>
         <li className="dropdown">
+         {user && ( 
+          <>
           <span>Plans de Repas</span>
+          </>
+          )}
           <div className="dropdown-content">
-            <Link to="/MealPlanListPage">Liste des plans de repas</Link>
-            {user && (
-              <Link to="/MealPlanFormPage">
+          {user && (
+            <>
+              <Link to="/MealPlanListPage">Liste de vos plans de repas</Link>
+              <Link to="/addMealPlan">
                 Ajouter/modifier un plan de repas
               </Link>
-            )}
+            </>
+          )}
           </div>
         </li>
         {!user && (
