@@ -89,7 +89,7 @@ export default function SignUp() {
           <div className="showPassword">
             <input
               type="checkbox"
-              onClick={togglePasswordVisibility}
+              onChange={togglePasswordVisibility}
               checked={showPassword}
             />
             <label> Montrer le mot de passe</label>
