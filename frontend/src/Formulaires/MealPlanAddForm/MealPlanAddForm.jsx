@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./MealPlanAddForm.css";
+import { useAuthContext } from "../../hooks/useAuthContext.js";
+import { useNavigate } from "react-router-dom";
 
 const MealPlanAddForm = ({ onSubmit }) => {
+  const { user, token } = useAuthContext();
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -62,9 +67,32 @@ const MealPlanAddForm = ({ onSubmit }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    if (user) {
+      setFormData({ ...formData, createdBy: user._id });
+    }
+
+    try {
+      const response = await fetch("http://localhost:4000/api/meal-plans/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error("Erreur lors de la requête.");
+      }
+
+      navigate("/myMealPlans");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
