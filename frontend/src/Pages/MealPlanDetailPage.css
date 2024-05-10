@@ -1,0 +1,46 @@
+/* MealPlanDetailPage.css */
+.mealPlanDetailPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mealPlanDetailPage h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.mealPlanDetailPage p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.mealPlanDetailPage ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mealPlanDetailPage ul li {
+  margin-bottom: 20px;
+}
+
+.mealPlanDetailPage ul li h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.mealPlanDetailPage ul li ul {
+  padding-left: 20px;
+}
+
+.mealPlanDetailPage ul li ul li {
+  font-size: 1.2rem;
+}
+
+.mealPlanDetailPage p:last-child {
+  margin-top: 20px;
+}
+
+.mealPlanDetailPage p span {
+  font-weight: bold;
+}
