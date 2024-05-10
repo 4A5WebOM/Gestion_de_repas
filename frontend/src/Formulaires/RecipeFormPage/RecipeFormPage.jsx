@@ -42,6 +42,16 @@ function RecipeFormPage({ onSubmit }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const hasEmptyIngredients = formData.ingredients.some(
+      (ingredient) => !ingredient.quantity || !ingredient.unit || !ingredient.name
+    );
+    const hasEmptySteps = formData.steps.some((step) => !step);
+  
+    if (hasEmptyIngredients || hasEmptySteps) {
+      setError("Veuillez remplir tous les informations pour pouvoir créer votre recette.");
+      return;
+    }
     if (user) {
         setFormData({ ...formData, createdBy: user._id });
     }
@@ -58,9 +68,9 @@ function RecipeFormPage({ onSubmit }) {
     });
 
     if (!response.ok) {
-        const message = await response.text();
-        throw new Error("Erreur lors de la requête.");
-      }
+      const message = await response.text();
+      throw new Error(" Vos informations sont valides appuyez ajouter pour créer la recette.");
+    }
 
         navigate("/RecipeListPage");
 
@@ -107,6 +117,7 @@ function RecipeFormPage({ onSubmit }) {
           <div key={index} className="ingredient-inputs">
             <input
               type="number"
+              min="1"
               name="quantity"
               value={ingredient.quantity}
               onChange={(event) => handleIngredientChange(index, event)}
