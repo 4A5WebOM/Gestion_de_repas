@@ -44,10 +44,7 @@ const handleSubmit = async (event) => {
             
         });
 
-        if (!response.ok) {
-            const message = await response.text();
-            throw new Error('Erreur lors de la requête.');
-        }
+        
 
         const data = await response.json();
 

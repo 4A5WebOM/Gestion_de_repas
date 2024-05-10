@@ -31,7 +31,7 @@ const RecipeDetailPage = () => {
             <h3>Ingredients:</h3>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient.name} - {ingredient.quantity}</li>
+                <li key={index}>{ingredient.quantity} {ingredient.unit}  {ingredient.name}</li>
               ))}
             </ul>
           </div>
