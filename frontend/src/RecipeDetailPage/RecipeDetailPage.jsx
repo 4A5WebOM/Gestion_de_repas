@@ -44,7 +44,7 @@ const RecipeDetailPage = () => {
             </ol>
           </div>
           <p>Catégorie {recipe.category}</p>
-          <p>Crée par : {recipe.createdBy.username}</p>
+     
         </>
       ) : (
         <p>Rien...</p>

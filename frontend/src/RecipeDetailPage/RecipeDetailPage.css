@@ -44,23 +44,12 @@
     font-style: italic;
 }
 
-.recipeDetailPage p:nth-last-child(2),
-.recipeDetailPage p:nth-last-child(3) {
-    font-size: 14px; 
-}
-
-.recipeDetailPage p:nth-last-child(2)::before,
-.recipeDetailPage p:nth-last-child(3)::before {
+.recipeDetailPage p:nth-last-child(1)::before {
     font-size: 12px; 
     content: " (---- ";
 }
 
-.recipeDetailPage p:nth-last-child(2)::after,
-.recipeDetailPage p:nth-last-child(3)::after {
+.recipeDetailPage p:nth-last-child(1)::after {
     font-size: 12px; 
     content: " ----) ";
-}
-
-.recipeDetailPage p:nth-last-child(2) {
-    font-weight: bold;
 }
