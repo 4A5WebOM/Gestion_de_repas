@@ -6,9 +6,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const RecipeDetailPage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); 
   const { user, token } = useAuthContext();
-  const navigate = useNavigate(); // permet de naviguer entre les routes
-   //( je l'ai utiliser pour aller dans myRecipes )
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRecipe();
@@ -21,11 +21,13 @@ const RecipeDetailPage = () => {
       setRecipe(data.recipe);
     } catch (error) {
       console.error('Erreur:', error);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
   const handleDelete = async () => {
-   
+    try {
       const response = await fetch(`http://localhost:4000/api/recipes/${id}`, {
         method: 'DELETE',
         headers: {
@@ -33,19 +35,22 @@ const RecipeDetailPage = () => {
         },
       });
       if (response.ok) {
-        navigate('/my-recipes'); //  Supprimer la recettes si elle est dans Mes recettes 
+        navigate('/RecipeListPage'); 
       } else {
         console.error('Erreur lors de la suppression de la recette');
       }
-    
-    
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la recette:', error);
+    }
   };
 
   return (
     <div className="recipeDetailPage">
-      {recipe ? (
+      {isLoading ? ( 
+        <p>Chargement en cours...</p>
+      ) : recipe ? (
         <>
-        {user && user._id === recipe.createdBy && (
+          {user && user._id === recipe.createdBy && (
             <button onClick={handleDelete}>Supprimer</button>
           )}
           <h2>{recipe.title}</h2> 
@@ -78,4 +83,3 @@ const RecipeDetailPage = () => {
 };
 
 export default RecipeDetailPage;
-
