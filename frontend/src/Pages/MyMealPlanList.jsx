@@ -3,7 +3,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import SideBar from "../components/SideBar/SideBar";
 import MealPlanList from "../components/MealPlan/MealPlanList";
 
-
 export default function MyMealPlanList() {
   const { user, token } = useAuthContext();
   const [mealPlans, setMealPlans] = useState([]);
@@ -33,7 +32,9 @@ export default function MyMealPlanList() {
     <div>
       <SideBar />
       <div className="recipeListPage" style={{ marginLeft: "250px" }}>
-      {mealPlans && <MealPlanList mealPlans={mealPlans} key={mealPlans._id} />}
+        {mealPlans && (
+          <MealPlanList mealPlans={mealPlans} key={mealPlans._id} />
+        )}
       </div>
     </div>
   );
