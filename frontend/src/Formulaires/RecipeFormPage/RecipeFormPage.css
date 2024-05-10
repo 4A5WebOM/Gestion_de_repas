@@ -76,6 +76,6 @@
 .Deuxiemebutton {
   margin-right: 20px;
 }
-.rouge {
+.rouge:hover {
   background-color: #ff0000;
 }
