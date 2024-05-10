@@ -33,12 +33,10 @@ const MealPlanAddForm = ({ onSubmit }) => {
     fetchRecipes();
   }, []);
 
-  const fetchRecipes = async (time) => {
+  const fetchRecipes = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/recipes?category=${time}`
-      );
+      const response = await fetch("http://localhost:4000/api/recipes");
       const data = await response.json();
       return data.recipes;
     } catch (error) {
@@ -54,7 +52,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
     const updatedDays = [...formData.days];
     updatedDays[dayIndex].meals[mealIndex][name] = value;
     if (name === "time") {
-      const recipes = await fetchRecipes(value);
+      const recipes = await fetchRecipes();
       updatedDays[dayIndex].meals[mealIndex].recipes = recipes;
     }
     setFormData({

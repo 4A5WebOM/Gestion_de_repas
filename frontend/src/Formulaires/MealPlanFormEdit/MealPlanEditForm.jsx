@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MealPlanEditForm.css";
+import { useAuthContext } from "../../hooks/useAuthContext.js";
+import { useNavigate } from "react-router-dom";
 
 const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
   const { user, token } = useAuthContext();
@@ -38,25 +40,30 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
     }
   }, [mealPlan]);
 
-  const fetchRecipes = async (time) => {
+  const fetchRecipes = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/recipes?category=${time}`
-      );
+      const response = await fetch("http://localhost:4000/api/recipes");
       const data = await response.json();
-      return data.recipes;
+      const recipes = data.recipes;
+      const updatedDays = formData.days.map((day) => ({
+        ...day,
+        meals: day.meals.map((meal) => ({
+          ...meal,
+          recipes: recipes,
+        })),
+      }));
+      setFormData({
+        ...formData,
+        days: updatedDays,
+      });
     } catch (error) {
       console.error("Erreur:", error);
-      return [];
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -69,10 +76,6 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
     const { name, value } = e.target;
     const updatedDays = [...formData.days];
     updatedDays[dayIndex].meals[mealIndex][name] = value;
-    if (name === "time") {
-      const recipes = await fetchRecipes(value);
-      updatedDays[dayIndex].meals[mealIndex].recipes = recipes;
-    }
     setFormData({
       ...formData,
       days: updatedDays,
@@ -86,15 +89,17 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:4000/api/meal-plans/", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/meal-plans/${mealPlan._id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         const message = await response.text();
@@ -129,8 +134,8 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
           />
         </div>
         <div>
-          {formData.days.map((day, index) => (
-            <div key={index}>
+          {formData.days.map((day, dayIndex) => (
+            <div key={dayIndex}>
               <h3>{day.day}</h3>
               {day.meals.map((meal, mealIndex) => (
                 <div key={mealIndex}>
