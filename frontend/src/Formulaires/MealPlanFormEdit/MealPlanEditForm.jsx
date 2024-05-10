@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./MealPlanEditForm.css";
 
 const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
+  const { user, token } = useAuthContext();
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -35,6 +39,7 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
   }, [mealPlan]);
 
   const fetchRecipes = async (time) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `http://localhost:4000/api/recipes?category=${time}`
@@ -44,9 +49,14 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
     } catch (error) {
       console.error("Erreur:", error);
       return [];
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -69,9 +79,32 @@ const MealPlanEditForm = ({ mealPlan, onSubmit }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    if (user) {
+      setFormData({ ...formData, createdBy: user._id });
+    }
+
+    try {
+      const response = await fetch("http://localhost:4000/api/meal-plans/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error("Erreur lors de la requête.");
+      }
+
+      navigate("/myMealPlans");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (

@@ -7,6 +7,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
   const { user, token } = useAuthContext();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -33,6 +34,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
   }, []);
 
   const fetchRecipes = async (time) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `http://localhost:4000/api/recipes?category=${time}`
@@ -42,6 +44,8 @@ const MealPlanAddForm = ({ onSubmit }) => {
     } catch (error) {
       console.error("Erreur:", error);
       return [];
+    } finally {
+      setIsLoading(false);
     }
   };
 
