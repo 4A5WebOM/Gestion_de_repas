@@ -56,7 +56,7 @@ function App() {
           <Route path="/meal-plan/:id" element={<MealPlanDetailPage />} />
           <Route path="/addMealPlan" element={<MealPlanAddForm />} />
           <Route path="/editMealPlan/:id" element={<MealPlanEditForm />} />
-          <Route path="/RecipeFormPage" element={<RecipeFormPage/>} />
+          <Route path="/RecipeFormPage" element={<RecipeFormPage />} />
         </Routes>
       </div>
     </Router>

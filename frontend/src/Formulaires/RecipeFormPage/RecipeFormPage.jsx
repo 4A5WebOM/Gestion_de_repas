@@ -30,10 +30,30 @@ function RecipeFormPage({ onSubmit }) {
         setFormData({ ...formData, steps: newSteps });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        onSubmit(formData);
-    };
+const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+        const response = await fetch("http://localhost:4000/api/recipes", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            
+            },
+            
+            body: JSON.stringify(formData),
+            
+        });
+
+        if (!response.ok) {
+            const message = await response.text();
+            throw new Error('Erreur lors de la requête.');
+        }
+
+        const data = await response.json();
+
+     
+};
+
     const handleRemoveLastIngredient = () => {
         const newIngredients = [...formData.ingredients];
         newIngredients.pop();
@@ -46,6 +66,8 @@ function RecipeFormPage({ onSubmit }) {
 };
 
     return (
+        <div>
+             {JSON.stringify(formData)}
         <form className="recipeFormPage" onSubmit={handleSubmit}>
             <label>
                 Titre de votre recette :
@@ -128,6 +150,8 @@ function RecipeFormPage({ onSubmit }) {
             </label>
             <button type="submit">Ajouter</button>
         </form>
+            </div>
+
     );
 }
 
