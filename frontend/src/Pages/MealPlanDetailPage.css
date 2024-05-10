@@ -1,18 +1,21 @@
-/* MealPlanDetailPage.css */
 .mealPlanDetailPage {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 .mealPlanDetailPage h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  margin-top: 0;
+  font-size: 1.8rem;
 }
 
 .mealPlanDetailPage p {
   font-size: 1.2rem;
   color: #666;
+  margin-bottom: 10px;
 }
 
 .mealPlanDetailPage ul {
