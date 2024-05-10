@@ -10,16 +10,16 @@ export default function MyRecipeList() {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch('http://localhost:4000/api/recipes', {
+      const response = await fetch("http://localhost:4000/api/recipes", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
-  
+
       if (response.ok) {
         const userRecipes = data.recipes.filter(
-          recipe => recipe.createdBy === user._id
+          (recipe) => recipe.createdBy === user._id
         );
         setRecipes(userRecipes);
       } else {
@@ -32,10 +32,10 @@ export default function MyRecipeList() {
   return (
     <div>
       <SideBar />
-      <div className="recipeListPage" style={{ marginLeft: '250px' }}>
-      {recipes.map((recipe) => (
-        <RecipeDetail recipe={recipe} key={recipe._id} />
-      ))}
+      <div className="recipeListPage" style={{ marginLeft: "250px" }}>
+        {recipes.map((recipe) => (
+          <RecipeDetail recipe={recipe} key={recipe._id} />
+        ))}
       </div>
     </div>
   );

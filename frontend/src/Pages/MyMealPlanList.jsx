@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import MealPlanDetail from "../components/MealPlan/MealPlanDetail";
 import SideBar from "../components/SideBar/SideBar";
-import MealPlanList from "../components/MealPlan/MealPlanList";
 
 export default function MyMealPlanList() {
   const { user, token } = useAuthContext();
@@ -9,7 +9,7 @@ export default function MyMealPlanList() {
 
   useEffect(() => {
     const fetchMealPlans = async () => {
-      const response = await fetch("http://localhost:4000/api/meal-plans/", {
+      const response = await fetch("http://localhost:4000/api/meal-plans", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -32,9 +32,9 @@ export default function MyMealPlanList() {
     <div>
       <SideBar />
       <div className="recipeListPage" style={{ marginLeft: "250px" }}>
-        {mealPlans && (
-          <MealPlanList mealPlans={mealPlans} key={mealPlans._id} />
-        )}
+        {mealPlans.map((mealPlan) => (
+          <MealPlanDetail mealPlan={mealPlan} key={mealPlan._id} />
+        ))}
       </div>
     </div>
   );
