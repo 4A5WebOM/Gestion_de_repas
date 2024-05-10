@@ -34,7 +34,7 @@ function NavBar() {
           <div className="dropdown-content">
           {user && (
             <>
-              <Link to="/MealPlanListPage">Liste de vos plans de repas</Link>
+              <Link to="/myMealPlans">Liste de vos plans de repas</Link>
               <Link to="/addMealPlan">
                 Ajouter/modifier un plan de repas
               </Link>
