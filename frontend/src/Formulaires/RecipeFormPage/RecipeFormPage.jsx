@@ -57,10 +57,10 @@ function RecipeFormPage({ onSubmit }) {
       body: JSON.stringify(formData),
     });
 
-        if (!response.ok) {
-            const message = await response.text();
-            throw new Error('Erreur lors de la requête.');
-        }
+    if (!response.ok) {
+        const message = await response.text();
+        throw new Error("Erreur lors de la requête.");
+      }
 
         navigate("/RecipeListPage");
 
