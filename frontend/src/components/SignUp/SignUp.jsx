@@ -10,6 +10,7 @@ export default function SignUp() {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ export default function SignUp() {
               id="email"
               placeholder="Entrez votre adresse courriel"
               value={enteredValues.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
+              onChange={(e) => handleInputChange("email", e.target.value.toLowerCase())}
             />
           </div>
           <div>
