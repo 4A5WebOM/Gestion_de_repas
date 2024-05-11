@@ -29,7 +29,7 @@ export default function Login() {
   const authSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch( REACT_APP_BACKEND_URL + "users/login", {
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + "users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

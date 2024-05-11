@@ -13,7 +13,7 @@ const RecipeListPage = () => {
   const fetchRecipes = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch( REACT_APP_BACKEND_URL + "recipes/");
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + "recipes/");
       const donnees = await response.json();
       setRecipes(donnees.recipes);
     } catch (error) {
