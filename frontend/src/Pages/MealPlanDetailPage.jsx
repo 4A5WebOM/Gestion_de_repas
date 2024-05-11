@@ -10,51 +10,59 @@ const MealPlanDetailPage = () => {
   const [mealPlan, setMealPlan] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchMealPlanAndRecipes = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/meal-plans/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Unauthorized");
+useEffect(() => {
+  const fetchMealPlanAndRecipes = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/meal-plans/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        const data = await response.json();
-        setMealPlan(data);
+      );
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Non autorisé. Veuillez vous reconnecter.");
+        } else {
+          throw new Error("Une erreur s'est produite lors de la récupération du plan de repas.");
+        }
+      }
+      const data = await response.json();
+      setMealPlan(data);
 
-        const recipeTitles = {};
-        for (let day of data.mealPlan.days) {
-          for (let meal of day.meals) {
-            const recipeResponse = await fetch(
-              `http://localhost:4000/api/recipes/${meal.recipe}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            if (!recipeResponse.ok) {
-              throw new Error("Unauthorized");
+      const recipeTitles = {};
+      for (let day of data.mealPlan.days) {
+        for (let meal of day.meals) {
+          const recipeResponse = await fetch(
+            `http://localhost:4000/api/recipes/${meal.recipe}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
+          );
+          if (!recipeResponse.ok) {
+            if (recipeResponse.status === 404) {
+              recipeTitles[meal.recipe] = "Recette non trouvée";
+            } else {
+              throw new Error("Une erreur s'est produite lors de la récupération de la recette.");
+            }
+          } else {
             const recipeData = await recipeResponse.json();
             recipeTitles[meal.recipe] = recipeData.recipe.title;
           }
         }
-        setRecipeTitles(recipeTitles);
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setIsLoading(false);
       }
-    };
-
-    fetchMealPlanAndRecipes();
-  }, [id, token]);
+      setRecipeTitles(recipeTitles);
+    } catch (error) {
+      console.error("Erreur :", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  fetchMealPlanAndRecipes();
+}, [id, token]);
 
   const handleDeleteMealPlan = async () => {
     try {
