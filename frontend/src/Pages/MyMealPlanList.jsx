@@ -38,13 +38,17 @@ export default function MyMealPlanList() {
     <div>
       <SideBar />
       <div className="mealPlanListPage">
-        {mealPlans.map((mealPlan) => (
-          <Link to={`/meal-plan/${mealPlan._id}`} key={mealPlan._id}>
-            <div className="mealPlanCard">
-              <MealPlanDetail mealPlan={mealPlan} />
-            </div>
-          </Link>
-        ))}
+        {mealPlans.length > 0 ? (
+          mealPlans.map((mealPlan) => (
+            <Link to={`/meal-plan/${mealPlan._id}`} key={mealPlan._id}>
+              <div className="mealPlanCard">
+                <MealPlanDetail mealPlan={mealPlan} />
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p>Vous n'avez pas de plan de repas ! Créer en un ici : <Link to="/addMealPlan">Ajouter un plan de repas</Link></p>
+        )}
       </div>
     </div>
   );

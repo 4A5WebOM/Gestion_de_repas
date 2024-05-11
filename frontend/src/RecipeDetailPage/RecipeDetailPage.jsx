@@ -60,7 +60,11 @@ const RecipeDetailPage = () => {
             <h3>Ingredients:</h3>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient.quantity} {ingredient.unit}  {ingredient.name}</li>
+               <li key={index}>
+               {ingredient.quantity}
+               {ingredient.unit !== "aucun" ? ingredient.unit + " " : " "}
+               {ingredient.name}
+             </li>
               ))}
             </ul>
           </div>
@@ -76,7 +80,7 @@ const RecipeDetailPage = () => {
           
         </>
       ) : (
-        <p>Rien...</p>
+        <p>Aucune recette pour le moment</p>
       )}
     </div>
   );
