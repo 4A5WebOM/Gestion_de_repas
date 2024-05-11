@@ -3,7 +3,6 @@ import "../RecipeFormPage/RecipeFormPage.css";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 import { useNavigate } from "react-router-dom";
 
-
 function RecipeFormPage({ onSubmit }) {
   const { user, token } = useAuthContext();
   const [error, setError] = useState(null);
@@ -15,7 +14,7 @@ function RecipeFormPage({ onSubmit }) {
     steps: [""],
     image: "",
     category: "",
-    createdBy: ""
+    createdBy: "",
   });
 
   const handleInputChange = (event) => {
@@ -44,38 +43,40 @@ function RecipeFormPage({ onSubmit }) {
     event.preventDefault();
 
     const hasEmptyIngredients = formData.ingredients.some(
-      (ingredient) => !ingredient.quantity || !ingredient.unit || !ingredient.name
+      (ingredient) =>
+        !ingredient.quantity || !ingredient.unit || !ingredient.name
     );
     const hasEmptySteps = formData.steps.some((step) => !step);
-  
+
     if (hasEmptyIngredients || hasEmptySteps) {
-      setError("Veuillez remplir tous les informations pour pouvoir créer votre recette.");
+      setError(
+        "Veuillez remplir tous les informations pour pouvoir créer votre recette."
+      );
       return;
     }
+    let updatedFormData = formData;
     if (user) {
-        setFormData({ ...formData, createdBy: user._id });
+      updatedFormData = { ...formData, createdBy: user._id };
     }
 
     try {
-    const response = await fetch("http://localhost:4000/api/recipes/", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`, 
-        "Content-Type": "application/json",
-      },
+      const response = await fetch("http://localhost:4000/api/recipes/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFormData),
+      });
+      console.log(response);
 
-      body: JSON.stringify(formData),
-    });
+      if (!response.ok) {
+        throw new Error("Une erreur est survenue, veuillez réessayer.");
+      }
 
-    if (!response.ok) {
-      const message = await response.text();
-      throw new Error(" Vos informations sont valides appuyez ajouter pour créer la recette.");
-    }
-
-        navigate("/RecipeListPage");
-
+      navigate("/RecipeListPage");
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     }
   };
 

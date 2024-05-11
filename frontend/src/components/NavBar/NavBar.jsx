@@ -6,9 +6,16 @@ import"../../RecipeListPage/RecipeListPage.jsx";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className="navbar">
@@ -57,7 +64,7 @@ function NavBar() {
           //active au moment qu'un utilisateur est connecte
           <>
             <li>
-              <button onClick={logout}>Deconnexion</button>
+              <button onClick={handleLogout}>Deconnexion</button>
             </li>
             <li>
               <Link to="/profile">
