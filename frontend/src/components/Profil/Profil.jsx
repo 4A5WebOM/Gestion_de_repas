@@ -22,13 +22,11 @@ export default function Profil() {
             },
           }
         );
-        console.log(response);
         const data = await response.json();
 
         if (response.ok) {
           setEmail(data.user.email);
           setUsername(data.user.username);
-          console.log(data);
         } else {
           throw new Error(data.message);
         }
@@ -68,7 +66,6 @@ export default function Profil() {
         throw new Error(data.error);
       }
 
-      console.log('User updated:', data);
     } catch (error) {
       console.error('Failed to update user:', error);
       setError(error.message);

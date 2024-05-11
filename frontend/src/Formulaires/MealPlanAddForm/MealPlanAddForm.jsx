@@ -97,7 +97,6 @@ const MealPlanAddForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("formData:", formData);
     if (!formData.title || !formData.description || formData.days.some(day => day.meals.some(meal => !meal.recipe))) {
       setError("Veuillez remplir tous les champs");
       return;

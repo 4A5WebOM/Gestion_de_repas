@@ -22,10 +22,10 @@ export const AuthProvider = ({ children }) => {
 
     const login = (user, token) => { 
         if (!user || !token) {
-            console.log('Invalid user or token');
+            console.log('User ou token invalide');
             return;
         }
-        console.log('Logging in with user: ', user);
+        console.log('Connection : ', user);
         setUser(user);
         setToken(token); 
         localStorage.setItem("user", JSON.stringify(user));

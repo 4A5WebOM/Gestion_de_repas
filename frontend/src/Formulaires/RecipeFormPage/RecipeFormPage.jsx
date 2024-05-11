@@ -68,7 +68,6 @@ function RecipeFormPage({ onSubmit }) {
         },
         body: JSON.stringify(updatedFormData),
       });
-      console.log(response);
 
       if (!response.ok) {
         throw new Error("Une erreur est survenue, veuillez réessayer.");

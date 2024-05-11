@@ -29,7 +29,6 @@ export default function Login() {
   const authSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log("Sending request with entered values: ", enteredValues);
       const response = await fetch("http://localhost:4000/api/users/login", {
         method: "POST",
         headers: {
@@ -39,17 +38,13 @@ export default function Login() {
       });
 
       const data = await response.json();
-      console.log("Received response: ", data);
       if (!response.ok) {
         throw new Error(data.error);
       }
 
-      console.log("Login successful, navigating to home page");
-      console.log(data)
       login(data.user, data.token);
       return <Navigate to="/" />;
     } catch (error) {
-      console.log("Error during login: ", error);
       setError(error.message);
     }
   };
