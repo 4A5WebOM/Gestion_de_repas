@@ -47,3 +47,16 @@
 .mealPlanDetailPage p span {
   font-weight: bold;
 }
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
+}

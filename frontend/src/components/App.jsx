@@ -20,7 +20,6 @@ import MyMealPlanList from "../Pages/MyMealPlanList.jsx";
 import RecipeFormPage from "../Formulaires/RecipeFormPage/RecipeFormPage.jsx";
 import MealPlanAddForm from "../Formulaires/MealPlanAddForm/MealPlanAddForm.jsx";
 import MealPlanDetailPage from "../Pages/MealPlanDetailPage.jsx";
-import MealPlanEditForm from "../Formulaires/MealPlanFormEdit/MealPlanEditForm.jsx";
 
 function App() {
   const { user } = useAuthContext();
@@ -55,7 +54,6 @@ function App() {
           />
           <Route path="/meal-plan/:id" element={<MealPlanDetailPage />} />
           <Route path="/addMealPlan" element={<MealPlanAddForm />} />
-          <Route path="/editMealPlan/:id" element={<MealPlanEditForm />} />
           <Route path="/RecipeFormPage" element={<RecipeFormPage />} />
         </Routes>
       </div>
