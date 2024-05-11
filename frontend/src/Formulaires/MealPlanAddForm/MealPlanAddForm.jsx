@@ -32,20 +32,44 @@ const MealPlanAddForm = ({ onSubmit }) => {
   useEffect(() => {
     fetchRecipes();
   }, []);
-
   const fetchRecipes = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/recipes");
-      const data = await response.json();
-      return data.recipes;
+      const response = await fetch("http://localhost:4000/api/recipes/");
+      let data = await response.json();
+  
+      // Crée une copie de formData
+      let formDataCopy = JSON.parse(JSON.stringify(formData));
+  
+      // Vérifie si data.recipes est un tableau
+      if (Array.isArray(data.recipes)) {
+        // Itère sur les recettes récupérées
+        data.recipes.forEach(recipe => {
+          // Itère sur les jours dans formDataCopy
+          for (let day in formDataCopy.days) {
+            // Itère sur les repas de chaque jour
+            formDataCopy.days[day].meals.forEach(meal => {
+              // Vérifie si la catégorie de la recette correspond à l'heure du repas
+              if (recipe.category === meal.time) {
+                // Si c'est le cas, ajoute la recette au repas
+                meal.recipes.push(recipe);
+              }
+            });
+          }
+        });
+  
+        // Met à jour l'état de formData avec formDataCopy
+        setFormData(formDataCopy);
+      } else {
+        console.error("Data.recipes n'est pas un tableau:", data.recipes);
+      }
     } catch (error) {
-      console.error("Erreur:", error);
-      return [];
+      console.error("Erreur lors de la récupération des recettes:", error);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleMealChange = async (e, dayIndex, mealIndex) => {
     const { name, value } = e.target;
@@ -61,6 +85,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
     });
   };
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -71,9 +96,19 @@ const MealPlanAddForm = ({ onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("formData:", formData);
+    if (!formData.title || !formData.description || formData.days.some(day => day.meals.some(meal => !meal.recipe))) {
+      setError("Veuillez remplir tous les champs");
+      return;
+    }
+
     if (user) {
       setFormData({ ...formData, createdBy: user._id });
     }
+
+   
+
 
     try {
       const response = await fetch("http://localhost:4000/api/meal-plans/", {
@@ -86,9 +121,10 @@ const MealPlanAddForm = ({ onSubmit }) => {
         body: JSON.stringify(formData),
       });
 
+      const json = await response.json();
+
       if (!response.ok) {
-        const message = await response.text();
-        throw new Error("Erreur lors de la requête.");
+        setError(json.error)
       }
 
       navigate("/myMealPlans");
@@ -96,6 +132,10 @@ const MealPlanAddForm = ({ onSubmit }) => {
       setError(error.message);
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="mealPlanAddForm">
@@ -132,11 +172,13 @@ const MealPlanAddForm = ({ onSubmit }) => {
                     onChange={(e) => handleMealChange(e, dayIndex, mealIndex)}
                   >
                     <option value="">Sélectionner</option>
-                    {meal.recipes.map((recipe) => (
-                      <option key={recipe._id} value={recipe._id}>
-                        {recipe.name}
-                      </option>
-                    ))}
+                    {meal.recipes
+                      .filter((recipe) => recipe.category === meal.time) 
+                      .map((recipe) => (
+                        <option key={recipe._id} value={recipe._id}>
+                          {recipe.title}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -144,6 +186,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
           </div>
         ))}
         <button type="submit">Créer le plan de repas</button>
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );

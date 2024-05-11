@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const mealPlanSchema = require('../models/mealPlan');
-const { check, validationResult } = require("express-validator");
 
 
 // GET tous les mealPlans
@@ -22,6 +21,7 @@ const getMealPlanById = async (req, res) => {
     }
 
     const mealPlan = await mealPlanSchema.findById(id);
+
     if (!mealPlan) {
         return res.status(404).json({ error: "MealPlan non trouvé" });
     } else {
@@ -33,20 +33,6 @@ const getMealPlanById = async (req, res) => {
 const createMealPlan = async (req, res) => {
     const { title, description, days} = req.body;
 
-    const champsVides = [];
-
-    // Vérifier si les champs requis sont vides
-    Object.keys(req.body).forEach((field) => {
-        if (!req.body[field]) {
-            champsVides.push(field);
-        }
-    });
-
-    if (champsVides.length > 0) {
-        return res.status(400).json({
-            error: `Les champs suivants sont vides: ${champsVides.join(", ")}`,
-        });
-    }
     try {
         const createdBy = req.user._id;
         const mealPlan = await mealPlanSchema.create({
@@ -80,9 +66,6 @@ const deleteMealPlanById = async (req, res) => {
 
 // Modifier un mealPlan
 const updateMealPlanById = [
-    check('title').notEmpty().withMessage('Le titre est requis'),
-    check('description').notEmpty().withMessage('La description est requise'),
-    check('days.*.meals.*.recipe').notEmpty().withMessage('Vous devez choisir des recettes pour chaque repas'),
 
     async (req, res) => {
         const errors = validationResult(req);
