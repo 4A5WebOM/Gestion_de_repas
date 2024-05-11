@@ -9,7 +9,7 @@ const ingredientSchema = new Schema({
     },
     unit: {
         type: String,
-        enum: ['g', 'ml', null],
+        enum: ['g', 'ml', "aucun"],
         required: true,
     },
     name: {

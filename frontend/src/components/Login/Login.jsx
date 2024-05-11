@@ -71,7 +71,7 @@ export default function Login() {
               id="email"
               placeholder="Entrez votre adresse courriel"
               value={enteredValues.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
+              onChange={(e) => handleInputChange("email", e.target.value.toLowerCase())}
             />
           </div>
           <div>
