@@ -29,7 +29,7 @@ export default function SignUp() {
   const authSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/api/users/signup", {
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + "users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

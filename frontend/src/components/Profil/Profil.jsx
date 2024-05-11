@@ -15,7 +15,7 @@ export default function Profil() {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/users/${user._id}`,
+          process.env.REACT_APP_BACKEND_URL + `users/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ export default function Profil() {
 
   const updateUser = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${user._id}`, {
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + `users/${user._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -62,9 +62,12 @@ export default function Profil() {
 
       const data = await response.json();
 
+
       if (!response.ok) {
         throw new Error(data.error);
       }
+
+      setError("Profil mis à jour");
 
     } catch (error) {
       console.error('Failed to update user:', error);

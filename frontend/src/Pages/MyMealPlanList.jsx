@@ -12,7 +12,7 @@ export default function MyMealPlanList() {
   useEffect(() => {
     const fetchMealPlans = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/meal-plans", {
+        const response = await fetch( process.env.REACT_APP_BACKEND_URL + "meal-plans", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -14,7 +14,7 @@ useEffect(() => {
   const fetchMealPlanAndRecipes = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/meal-plans/${id}`,
+        process.env.REACT_APP_BACKEND_URL + `meal-plans/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ useEffect(() => {
       for (let day of data.mealPlan.days) {
         for (let meal of day.meals) {
           const recipeResponse = await fetch(
-            `http://localhost:4000/api/recipes/${meal.recipe}`,
+            process.env.REACT_APP_BACKEND_URL + `recipes/${meal.recipe}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ useEffect(() => {
   const handleDeleteMealPlan = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/meal-plans/${id}`,
+        process.env.REACT_APP_BACKEND_URL + `meal-plans/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -16,7 +16,7 @@ const RecipeDetailPage = () => {
 
   const fetchRecipe = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/recipes/${id}`); 
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + `recipes/${id}`); 
       const data = await response.json();
       setRecipe(data.recipe);
     } catch (error) {
@@ -28,7 +28,7 @@ const RecipeDetailPage = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/recipes/${id}`, {
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + `recipes/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

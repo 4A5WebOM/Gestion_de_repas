@@ -35,7 +35,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
   const fetchRecipes = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/recipes/");
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + "recipes/");
       let data = await response.json();
   
       // Crée une copie de formData
@@ -110,7 +110,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
 
 
     try {
-      const response = await fetch("http://localhost:4000/api/meal-plans/", {
+      const response = await fetch( process.env.REACT_APP_BACKEND_URL + "meal-plans/", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

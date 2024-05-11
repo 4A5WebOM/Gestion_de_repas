@@ -9,7 +9,7 @@ export default function MyRecipeList() {
   const { user, token } = useAuthContext();
   const [recipes, setRecipes] = useState([]);
 
-  const { data, error } = useFetch("http://localhost:4000/api/recipes", {
+  const { data, error } = useFetch( process.env.REACT_APP_BACKEND_URL + "recipes", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
