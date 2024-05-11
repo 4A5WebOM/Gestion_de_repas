@@ -27,7 +27,6 @@ const MealPlanDetailPage = () => {
         const data = await response.json();
         setMealPlan(data);
 
-        // Fetch the recipe titles
         const recipeTitles = {};
         for (let day of data.mealPlan.days) {
           for (let meal of day.meals) {
@@ -39,7 +38,6 @@ const MealPlanDetailPage = () => {
                 },
               }
             );
-            console.log("Recipe response:", recipeResponse);
             if (!recipeResponse.ok) {
               throw new Error("Unauthorized");
             }
@@ -48,9 +46,8 @@ const MealPlanDetailPage = () => {
           }
         }
         setRecipeTitles(recipeTitles);
-        console.log("Recipe titles:", recipeTitles);
       } catch (error) {
-        console.error("Erreur:", error);
+        console.error("Error:", error);
       } finally {
         setIsLoading(false);
       }
@@ -58,6 +55,28 @@ const MealPlanDetailPage = () => {
 
     fetchMealPlanAndRecipes();
   }, [id, token]);
+
+  const handleDeleteMealPlan = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/meal-plans/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error deleting meal plan");
+      }
+
+      window.location.href = "/profile";
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -93,6 +112,9 @@ const MealPlanDetailPage = () => {
               {new Date(mealPlan.mealPlan.createdAt).toLocaleString()}
             </span>
           </p>
+          <button className="deleteButton" onClick={handleDeleteMealPlan}>
+            Supprimer
+          </button>
         </>
       ) : (
         <p>Vous n'avez pas encore créé de plan de repas.</p>
