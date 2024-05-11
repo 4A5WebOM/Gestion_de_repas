@@ -111,6 +111,7 @@ function RecipeFormPage({ onSubmit }) {
             value={formData.description}
             onChange={handleInputChange}
             required
+            style={{ resize: "none" }}
           />
         </label>
         Ingrédients:
@@ -131,6 +132,7 @@ function RecipeFormPage({ onSubmit }) {
               className="ingredient-unit"
             >
               <option value="">Unité</option>
+              <option value="aucun">Ne s'applique pas</option>
               <option value="g">g</option>
               <option value="ml">ml</option>
             </select>

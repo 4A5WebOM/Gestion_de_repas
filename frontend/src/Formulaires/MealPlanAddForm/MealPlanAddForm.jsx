@@ -156,6 +156,7 @@ const MealPlanAddForm = ({ onSubmit }) => {
             name="description"
             value={formData.description}
             onChange={handleChange}
+            style={{ resize: "none" }}
           />
         </div>
         {formData.days.map((day, dayIndex) => (
